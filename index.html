@@ -14,6 +14,8 @@
     <button onclick="logoutFB()">登出FB</button>
     <button onclick="unAuthFB()">解除授權FB</button>
 
+    <p class="msg" ></p>
+
 
     <script>
         window.fbAsyncInit = function () {
@@ -43,6 +45,7 @@
                 // 如果已經為登入狀態
                 if (response.authResponse) {
                     FB.api('/me', function (response) {
+                        document.querySelector('.msg').textContent = response.name;
                         console.log(response.name)
 
                     });
@@ -53,10 +56,12 @@
                         if (response.authResponse) {
                             console.log('Welcome!  Fetching your information.... ');
                             FB.api('/me', function (response) {
-                                console.log('Good to see you, ' + response.name + '.');
+                                console.log('歡迎! ' + response.name + '.');
+                                document.querySelector('.msg').textContent = '歡迎! ' + response.name + '.';
                             });
                         } else {
                             console.log('User cancelled login or did not fully authorize.');
+                            document.querySelector('.msg').textContent = 'User cancelled login or did not fully authorize.';
                         }
                     });
                 }
@@ -77,6 +82,8 @@
         function logoutFB() {
             FB.logout(function (response) {
                 console.log('Person is now logged out');
+                document.querySelector('.msg').textContent = '已登出FB';
+                
             });
         }
 
@@ -85,7 +92,9 @@
      
             FB.api("/me/permissions", "DELETE", function (response) {
                 console.log("刪除結果");
+               
                 console.log(response); //gives true on app delete success
+                document.querySelector('.msg').textContent = '已解除FB授權';
                 //最後一個參數傳遞true避免cache
                 FB.getLoginStatus(function (res) { }, true);//強制刷新cache避免login status下次誤判
 
