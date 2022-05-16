@@ -14,7 +14,7 @@
     <button onclick="logoutFB()">登出FB</button>
     <button onclick="unAuthFB()">解除授權FB</button>
 
-    <p class="msg" ></p>
+    <p class="msg"></p>
 
 
     <script>
@@ -75,7 +75,11 @@
                 hashtag: '#測試hashtag',
                 href: 'https://developers.facebook.com/docs/',
             }, function (response) {
-
+                if (response && !response.error_message) {
+                    alert('已完成分享');
+                } else {
+                    alert('Error while posting.');
+                }
             });
         };
 
@@ -83,16 +87,16 @@
             FB.logout(function (response) {
                 console.log('Person is now logged out');
                 document.querySelector('.msg').textContent = '已登出FB';
-                
+
             });
         }
 
 
         function unAuthFB() {
-     
+
             FB.api("/me/permissions", "DELETE", function (response) {
                 console.log("刪除結果");
-               
+
                 console.log(response); //gives true on app delete success
                 document.querySelector('.msg').textContent = '已解除FB授權';
                 //最後一個參數傳遞true避免cache
