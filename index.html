@@ -11,6 +11,7 @@
 <body>
     <button onclick="loginFB()">登入FB</button>
     <button onclick="shareFB()">分享FB</button>
+    <button onclick="logoutFB()">登出FB</button>
 
 
     <script>
@@ -38,13 +39,15 @@
         function loginFB() {
             //檢查FB登入狀態
             FB.getLoginStatus(function (response) {
-               
+                // 如果已經為登入狀態
                 if (response.authResponse) {
                     FB.api('/me', function (response) {
                         console.log(response.name)
-                
+
                     });
+                    // 如果為未登入狀態
                 } else {
+                    // 執行登入
                     FB.login(function (response) {
                         if (response.authResponse) {
                             console.log('Welcome!  Fetching your information.... ');
@@ -69,6 +72,12 @@
 
             });
         };
+
+        function logoutFB() {
+            FB.logout(function (response) {
+                console.log('Person is now logged out');
+            });
+        }
 
     </script>
 
