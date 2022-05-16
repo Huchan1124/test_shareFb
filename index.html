@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <button onclick="loginFB()">登入FB</button>
     <button onclick="shareFB()">分享FB</button>
 
 
@@ -34,6 +35,11 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
     <script>
+        function loginFB() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
         function shareFB() {
             FB.ui({
                 display: 'popup',
@@ -44,7 +50,7 @@
             }, function (response) {
 
             });
-        }
+        };
 
     </script>
 
