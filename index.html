@@ -12,6 +12,7 @@
     <button onclick="loginFB()">登入FB</button>
     <button onclick="shareFB()">分享FB</button>
     <button onclick="logoutFB()">登出FB</button>
+    <button onclick="unAuthFB()">解除授權FB</button>
 
 
     <script>
@@ -76,6 +77,18 @@
         function logoutFB() {
             FB.logout(function (response) {
                 console.log('Person is now logged out');
+            });
+        }
+
+
+        function unAuthFB() {
+     
+            FB.api("/me/permissions", "DELETE", function (response) {
+                console.log("刪除結果");
+                console.log(response); //gives true on app delete success
+                //最後一個參數傳遞true避免cache
+                FB.getLoginStatus(function (res) { }, true);//強制刷新cache避免login status下次誤判
+
             });
         }
 
