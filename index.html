@@ -36,10 +36,12 @@
     </script>
     <script>
         function loginFB() {
+            //檢查FB登入狀態
             FB.getLoginStatus(function (response) {
-                // statusChangeCallback(response);
+               
                 if (response.authResponse) {
-                    FB.api('/me', { fields: 'id,name,email' }, function (response) {
+                    FB.api('/me', function (response) {
+                        console.log(response.name)
                 
                     });
                 } else {
